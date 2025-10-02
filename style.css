@@ -633,3 +633,210 @@ footer {
     gap: 2rem;
   }
 }
+
+/* ==========================
+   ABOUT PAGE STYLES
+========================== */
+
+/* About Hero Section */
+.about-hero {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+.about-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--color-white);
+  margin-bottom: 2rem;
+}
+
+.about-subtitle {
+  font-size: 1.5rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Philosophy Section */
+.philosophy-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.philosophy-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.philosophy-text {
+  margin-top: 2rem;
+}
+
+.philosophy-paragraph {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.philosophy-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Principles Section */
+.principles-section {
+  background: var(--color-bg);
+  padding: 6rem 1.5rem;
+}
+
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.principle-card {
+  background: var(--color-white);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  border: 1px solid #E2E8F0;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.principle-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.principle-icon {
+  width: 4rem;
+  height: 4rem;
+  background: var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.principle-icon svg {
+  color: var(--color-white);
+}
+
+.principle-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.principle-description {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Work Approach Section */
+.work-approach-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.work-approach-section .section-title {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.approach-steps {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.approach-step {
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.approach-step:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.approach-step-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.approach-step-description {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN FOR ABOUT PAGE
+========================== */
+@media (max-width: 768px) {
+  .about-title {
+    font-size: 2.5rem;
+  }
+  
+  .about-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .principles-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .principle-card {
+    padding: 2rem;
+  }
+  
+  .approach-step-title {
+    font-size: 1.25rem;
+  }
+  
+  .approach-step-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero {
+    padding: 4rem 1.5rem;
+  }
+  
+  .about-title {
+    font-size: 2rem;
+  }
+  
+  .philosophy-section,
+  .principles-section,
+  .work-approach-section {
+    padding: 4rem 1.5rem;
+  }
+  
+  .principle-card {
+    padding: 1.5rem;
+  }
+}
