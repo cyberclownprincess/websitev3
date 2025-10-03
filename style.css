@@ -1174,3 +1174,585 @@ footer {
     padding: 0.2rem 0.6rem;
   }
 }
+
+/* ==========================
+   CASE STUDY PAGE STYLES
+========================== */
+
+/* Case Study Hero Section */
+.case-study-hero {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 4rem 1.5rem 6rem;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 3rem;
+  transition: color 0.2s;
+}
+
+.back-button:hover {
+  color: var(--color-accent);
+}
+
+.back-button .arrow {
+  transition: transform 0.2s;
+}
+
+.back-button:hover .arrow {
+  transform: translateX(-2px);
+}
+
+.case-study-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.case-study-badges {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.badge {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background: var(--color-accent);
+  color: var(--color-white);
+  border-radius: 2rem;
+  border: 1px solid var(--color-accent);
+}
+
+.case-study-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--color-white);
+  margin-bottom: 2rem;
+  line-height: 1.1;
+}
+
+.case-study-subtitle {
+  font-size: 1.5rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Project Details Section */
+.project-details-section {
+  background: var(--color-bg);
+  padding: 4rem 1.5rem;
+}
+
+.project-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.project-detail {
+  text-align: center;
+}
+
+.project-detail-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.project-detail-value {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* Overview Section */
+.overview-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.overview-content {
+  max-width: 800px;
+  margin-top: 2rem;
+}
+
+.overview-paragraph {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.overview-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Challenges Section */
+.challenges-section {
+  background: var(--color-bg);
+  padding: 6rem 1.5rem;
+}
+
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.challenge-card {
+  background: var(--color-white);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  border: 1px solid #E2E8F0;
+  text-align: center;
+}
+
+.challenge-icon {
+  width: 5rem;
+  height: 5rem;
+  background: var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.challenge-icon svg {
+  color: var(--color-white);
+}
+
+.challenge-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.challenge-description {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Research Section */
+.research-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.research-content {
+  max-width: 800px;
+  margin-top: 2rem;
+}
+
+.research-item {
+  margin-bottom: 3rem;
+}
+
+.research-item:last-child {
+  margin-bottom: 0;
+}
+
+.research-item-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.research-item-description {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* Solutions Section */
+.solutions-section {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 6rem 1.5rem;
+}
+
+.solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.solution-card {
+  background: var(--color-dark);
+  background: linear-gradient(145deg, #1E293B, #0F172A);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  border: 1px solid #334155;
+}
+
+.solution-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--color-white);
+  margin-bottom: 1rem;
+}
+
+.solution-description {
+  color: #94A3B8;
+  line-height: 1.6;
+}
+
+/* Design Process Section */
+.design-process-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.process-steps {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.process-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.process-step-number {
+  width: 3rem;
+  height: 3rem;
+  background: var(--color-accent);
+  color: var(--color-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.process-step-content {
+  flex: 1;
+  padding-top: 0.25rem;
+}
+
+.process-step-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.process-step-description {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Features Section */
+.features-section {
+  background: var(--color-bg);
+  padding: 6rem 1.5rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: var(--color-white);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  border: 1px solid #E2E8F0;
+}
+
+.feature-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-item {
+  padding: 0.5rem 0;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.feature-item::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* Outcomes Section */
+.outcomes-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.outcomes-intro {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 4rem;
+  line-height: 1.6;
+}
+
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto 4rem;
+}
+
+.outcome-item {
+  text-align: center;
+}
+
+.outcome-metric {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.outcome-label {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+}
+
+.testimonial {
+  background: var(--color-bg);
+  padding: 3rem;
+  border-radius: 1rem;
+  border: 1px solid #E2E8F0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.testimonial-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-quote {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.testimonial-quote::before {
+  content: '"';
+  font-size: 4rem;
+  color: var(--color-accent);
+  position: absolute;
+  left: -2rem;
+  top: -1rem;
+  opacity: 0.3;
+  line-height: 1;
+}
+
+.testimonial-author {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* Learnings Section */
+.learnings-section {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 6rem 1.5rem;
+}
+
+.learnings-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.learning-item {
+  margin-bottom: 3rem;
+}
+
+.learning-item:last-child {
+  margin-bottom: 0;
+}
+
+.learning-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-white);
+  margin-bottom: 1rem;
+}
+
+.learning-description {
+  font-size: 1.125rem;
+  color: #94A3B8;
+  line-height: 1.7;
+}
+
+/* Case Study CTA */
+.case-study-cta {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.case-study-cta .cta-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.case-study-cta .cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.case-study-cta .cta-description {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.case-study-cta .cta-button {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-white);
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.125rem;
+  transition: background-color 0.3s;
+}
+
+.case-study-cta .cta-button:hover {
+  background: #2563EB;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN FOR CASE STUDY
+========================== */
+@media (max-width: 768px) {
+  .case-study-title {
+    font-size: 2.5rem;
+  }
+  
+  .case-study-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .project-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .challenges-grid,
+  .solutions-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .process-step {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .process-step-number {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+  
+  .outcomes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .outcome-metric {
+    font-size: 2.5rem;
+  }
+  
+  .testimonial {
+    padding: 2rem;
+  }
+  
+  .case-study-cta .cta-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .case-study-hero {
+    padding: 3rem 1.5rem 4rem;
+  }
+  
+  .project-details-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .outcomes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .challenge-card,
+  .solution-card,
+  .feature-card {
+    padding: 2rem;
+  }
+  
+  .case-study-cta .cta-title {
+    font-size: 2rem;
+  }
+}

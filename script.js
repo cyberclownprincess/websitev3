@@ -220,3 +220,56 @@ document.addEventListener("DOMContentLoaded", () => {
     initUXPageAnimations();
   }
 });
+
+// Case Study page specific animations
+function initCaseStudyAnimations() {
+  // Only run on case study pages
+  if (!window.location.pathname.includes('casestudy')) return;
+
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Observe various elements for animation
+  const animatedElements = document.querySelectorAll(
+    '.challenge-card, .solution-card, .feature-card, .process-step, .outcome-item, .learning-item'
+  );
+  
+  animatedElements.forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(el);
+  });
+}
+
+// Update the DOMContentLoaded event listener
+document.addEventListener("DOMContentLoaded", () => {
+  loadComponent("header-placeholder", "header.html");
+  loadComponent("footer-placeholder", "footer.html");
+  loadComponent("accessibility-placeholder", "accessibility.html");
+  
+  // Initialize page-specific functionality
+  if (window.location.pathname.includes('home.html') || 
+      window.location.pathname === '/' || 
+      window.location.pathname.includes('index.html')) {
+    initFlipCard();
+  } else if (window.location.pathname.includes('about.html')) {
+    initAboutPageAnimations();
+  } else if (window.location.pathname.includes('user-experience.html')) {
+    initUXPageAnimations();
+  } else if (window.location.pathname.includes('casestudy')) {
+    initCaseStudyAnimations();
+  }
+});
