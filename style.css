@@ -840,3 +840,337 @@ footer {
     padding: 1.5rem;
   }
 }
+
+/* ==========================
+   USER EXPERIENCE PAGE STYLES
+========================== */
+
+/* UX Hero Section */
+.ux-hero {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+.ux-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ux-hero-badge {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.ux-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--color-white);
+  margin-bottom: 2rem;
+}
+
+.ux-hero-subtitle {
+  font-size: 1.5rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Expertise Section */
+.expertise-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.expertise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.expertise-item {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.expertise-icon {
+  width: 5rem;
+  height: 5rem;
+  background: var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.expertise-icon svg {
+  color: var(--color-white);
+}
+
+.expertise-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.expertise-description {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Case Studies Section */
+.case-studies-section {
+  background: var(--color-bg);
+  padding: 6rem 1.5rem;
+}
+
+.case-studies-header {
+  max-width: 800px;
+  margin-bottom: 4rem;
+}
+
+.case-studies-description {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.case-studies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.case-study-card {
+  background: var(--color-white);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  border: 1px solid #E2E8F0;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.case-study-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.case-study-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.case-study-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin: 0;
+  flex: 1;
+}
+
+.case-study-status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  margin-left: 1rem;
+}
+
+.case-study-status.completed {
+  background: #DCFCE7;
+  color: #166534;
+  border: 1px solid #BBF7D0;
+}
+
+.case-study-status.in-progress {
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FDE68A;
+}
+
+.case-study-description {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.case-study-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  background: var(--color-accent);
+  color: var(--color-white);
+  border-radius: 1rem;
+  border: 1px solid var(--color-accent);
+}
+
+.case-study-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-accent);
+  font-weight: 500;
+  text-decoration: none;
+  transition: gap 0.3s;
+  margin-top: auto;
+}
+
+.case-study-link:hover {
+  gap: 0.75rem;
+}
+
+.case-study-link:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Process Section */
+.process-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.process-steps {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.process-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.process-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  opacity: 0.3;
+  line-height: 1;
+  min-width: 4rem;
+}
+
+.process-content {
+  flex: 1;
+  padding-top: 0.5rem;
+}
+
+.process-step-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.process-step-description {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN FOR UX PAGE
+========================== */
+@media (max-width: 768px) {
+  .ux-hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .ux-hero-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .expertise-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .case-studies-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .case-study-card {
+    padding: 2rem;
+  }
+  
+  .case-study-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .case-study-status {
+    margin-left: 0;
+    align-self: flex-start;
+  }
+  
+  .process-step {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .process-number {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ux-hero {
+    padding: 4rem 1.5rem;
+  }
+  
+  .ux-hero-title {
+    font-size: 2rem;
+  }
+  
+  .expertise-section,
+  .case-studies-section,
+  .process-section {
+    padding: 4rem 1.5rem;
+  }
+  
+  .case-study-card {
+    padding: 1.5rem;
+  }
+  
+  .case-study-tags {
+    gap: 0.25rem;
+  }
+  
+  .tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+}
