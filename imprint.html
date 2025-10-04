@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rika" />
+  <meta name="description" content="Imprint for Rika Federov's portfolio website - Legal information and contact details." />
+  
+  <title>Imprint - Rika Federov</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="canonical" href="https://rikaux.com/imprint.html" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="accessibility-placeholder"></div>
+  
+  <!-- Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header wird als Komponente geladen -->
+  <div id="header-placeholder"></div>
+
+  <main id="main-content" role="main" tabindex="-1">
+    <section class="imprint-section">
+      <div class="container">
+        <div class="imprint-content">
+          <h1 class="imprint-title">Imprint</h1>
+          <div class="accent-line"></div>
+
+          <div class="imprint-text">
+            <section class="imprint-section-item">
+              <h2 class="imprint-section-title">Information in accordance with legal requirements</h2>
+            </section>
+
+            <section class="imprint-section-item">
+              <h2 class="imprint-section-title">Contact Information</h2>
+              <div class="contact-info-grid">
+                <div class="contact-info-item">
+                  <strong class="contact-info-label">Name:</strong>
+                  <span class="contact-info-value">Rika Federov</span>
+                </div>
+                <div class="contact-info-item">
+                  <strong class="contact-info-label">Profession:</strong>
+                  <span class="contact-info-value">Creative Lead for Digital Design and Digital Media</span>
+                </div>
+                <div class="contact-info-item">
+                  <strong class="contact-info-label">Email:</strong>
+                  <a href="mailto:rika.federov@example.com" class="contact-info-link">rika.federov@example.com</a>
+                </div>
+              </div>
+            </section>
+
+            <section class="imprint-section-item">
+              <h2 class="imprint-section-title">Disclaimer</h2>
+              
+              <div class="disclaimer-section">
+                <h3 class="disclaimer-subtitle">Liability for Content</h3>
+                <p class="imprint-section-description">
+                  The contents of this website have been created with the utmost care. However, I cannot guarantee the accuracy, completeness, or timeliness of the content. As a service provider, I am responsible for my own content on these pages in accordance with general laws. However, I am not obligated to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.
+                </p>
+              </div>
+
+              <div class="disclaimer-section">
+                <h3 class="disclaimer-subtitle">Liability for Links</h3>
+                <p class="imprint-section-description">
+                  This website may contain links to external websites over which I have no control. Therefore, I cannot accept any liability for this external content. The respective provider or operator of the pages is always responsible for the content of the linked pages.
+                </p>
+              </div>
+
+              <div class="disclaimer-section">
+                <h3 class="disclaimer-subtitle">Copyright</h3>
+                <p class="imprint-section-description">
+                  The content and works created on these pages are subject to copyright. The reproduction, editing, distribution, and any kind of use beyond the limits of copyright require written consent from the respective author or creator. Downloads and copies of this page are only permitted for private, non-commercial use.
+                </p>
+              </div>
+            </section>
+
+            <section class="imprint-section-item">
+              <h2 class="imprint-section-title">Professional Information</h2>
+              <p class="imprint-section-description">
+                This is a professional portfolio website showcasing design work and professional capabilities. All case studies and project examples are presented with appropriate permissions and comply with confidentiality agreements.
+              </p>
+            </section>
+
+            <section class="imprint-section-item">
+              <p class="imprint-update-date">
+                Last updated: <span id="current-date"></span>
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer wird als Komponente geladen -->
+  <div id="footer-placeholder"></div>
+
+  <script src="script.js"></script>
+  <script>
+    // Set current date for last updated
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentDate = new Date().toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      document.getElementById('current-date').textContent = currentDate;
+    });
+  </script>
+</body>
+</html>

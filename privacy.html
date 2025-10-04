@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Rika" />
+  <meta name="description" content="Privacy Policy for Rika Federov's portfolio website - Learn how your data is collected and protected." />
+  
+  <title>Privacy Policy - Rika Federov</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="canonical" href="https://rikaux.com/privacy.html" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="accessibility-placeholder"></div>
+  
+  <!-- Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header wird als Komponente geladen -->
+  <div id="header-placeholder"></div>
+
+  <main id="main-content" role="main" tabindex="-1">
+    <section class="privacy-section">
+      <div class="container">
+        <div class="privacy-content">
+          <h1 class="privacy-title">Privacy Policy</h1>
+          <div class="accent-line"></div>
+
+          <div class="privacy-text">
+            <section class="privacy-section-item">
+              <h2 class="privacy-section-title">Introduction</h2>
+              <p class="privacy-section-description">
+                This privacy policy outlines how Rika Federov ("I", "me") collects, uses, and protects any information that you provide when using this portfolio website.
+              </p>
+            </section>
+
+            <section class="privacy-section-item">
+              <h2 class="privacy-section-title">Information Collection</h2>
+              <p class="privacy-section-description">
+                When you use the contact form on this website, I collect the following information:
+              </p>
+              <ul class="privacy-list">
+                <li class="privacy-list-item">Your name</li>
+                <li class="privacy-list-item">Your email address</li>
+                <li class="privacy-list-item">The message content you provide</li>
+              </ul>
+            </section>
+
+            <section class="privacy-section-item">
+              <h2 class="privacy-section-title">How I Use Your Information</h2>
+              <p class="privacy-section-description">
+                The information you provide is used solely for:
+              </p>
+              <ul class="privacy-list">
+                <li class="privacy-list-item">Responding to your inquiry</li>
+                <li class="privacy-list-item">Communication regarding potential collaboration or projects</li>
+              </ul>
+              <p class="privacy-section-description">
+                I will never sell, distribute, or lease your personal information to third parties unless required by law.
+              </p>
+            </section>
+
+            <section class="privacy-section-item">
+              <h2 class="privacy-section-title">Data Security</h2>
+              <p class="privacy-section-description">
+                I am committed to ensuring that your information is secure. I have implemented suitable measures to prevent unauthorized access or disclosure of your data.
+              </p>
+            </section>
+
+            <section class="privacy-section-item">
+              <h2 class="privacy-section-title">Cookies</h2>
+              <p class="privacy-section-description">
+                This website does not use cookies to track visitor behavior. Any cookies used are solely for essential website functionality.
+              </p>
+            </section>
+
+            <section class="privacy-section-item">
+              <h2 class="privacy-section-title">Your Rights</h2>
+              <p class="privacy-section-description">
+                You have the right to:
+              </p>
+              <ul class="privacy-list">
+                <li class="privacy-list-item">Request access to your personal data</li>
+                <li class="privacy-list-item">Request correction of inaccurate data</li>
+                <li class="privacy-list-item">Request deletion of your data</li>
+                <li class="privacy-list-item">Withdraw consent at any time</li>
+              </ul>
+            </section>
+
+            <section class="privacy-section-item">
+              <h2 class="privacy-section-title">Contact</h2>
+              <p class="privacy-section-description">
+                If you have any questions about this privacy policy or how your data is handled, please contact me at <a href="mailto:rika.federov@example.com" class="privacy-link">rika.federov@example.com</a>
+              </p>
+            </section>
+
+            <section class="privacy-section-item">
+              <p class="privacy-update-date">
+                Last updated: <span id="current-date"></span>
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer wird als Komponente geladen -->
+  <div id="footer-placeholder"></div>
+
+  <script src="script.js"></script>
+  <script>
+    // Set current date for last updated
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentDate = new Date().toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      document.getElementById('current-date').textContent = currentDate;
+    });
+  </script>
+</body>
+</html>

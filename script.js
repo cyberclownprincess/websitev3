@@ -273,3 +273,241 @@ document.addEventListener("DOMContentLoaded", () => {
     initCaseStudyAnimations();
   }
 });
+
+// Communications page specific animations
+function initCommunicationsAnimations() {
+  // Only run on communications page
+  if (!window.location.pathname.includes('communication.html')) return;
+
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Observe expertise items
+  const expertiseItems = document.querySelectorAll('.comms-expertise-item');
+  expertiseItems.forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(el);
+  });
+
+  // Observe example cards
+  const exampleCards = document.querySelectorAll('.comms-example-card');
+  exampleCards.forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(el);
+  });
+
+  // Observe skill items
+  const skillItems = document.querySelectorAll('.comms-skill-item');
+  skillItems.forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(-20px)';
+    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(el);
+  });
+}
+
+// Update the DOMContentLoaded event listener
+document.addEventListener("DOMContentLoaded", () => {
+  loadComponent("header-placeholder", "header.html");
+  loadComponent("footer-placeholder", "footer.html");
+  loadComponent("accessibility-placeholder", "accessibility.html");
+  
+  // Initialize page-specific functionality
+  if (window.location.pathname.includes('home.html') || 
+      window.location.pathname === '/' || 
+      window.location.pathname.includes('index.html')) {
+    initFlipCard();
+  } else if (window.location.pathname.includes('about.html')) {
+    initAboutPageAnimations();
+  } else if (window.location.pathname.includes('user-experience.html')) {
+    initUXPageAnimations();
+  } else if (window.location.pathname.includes('casestudy')) {
+    initCaseStudyAnimations();
+  } else if (window.location.pathname.includes('communication.html')) {
+    initCommunicationsAnimations();
+  }
+});
+
+// Contact page specific functionality
+function initContactPage() {
+  // Only run on contact page
+  if (!window.location.pathname.includes('contact.html')) return;
+
+  // Simple animations for contact page
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Observe form and info sections
+  const contactSections = document.querySelectorAll('.contact-form-container, .contact-info');
+  contactSections.forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+    observer.observe(el);
+  });
+}
+
+// Update the DOMContentLoaded event listener
+document.addEventListener("DOMContentLoaded", () => {
+  loadComponent("header-placeholder", "header.html");
+  loadComponent("footer-placeholder", "footer.html");
+  loadComponent("accessibility-placeholder", "accessibility.html");
+  
+  // Initialize page-specific functionality
+  if (window.location.pathname.includes('home.html') || 
+      window.location.pathname === '/' || 
+      window.location.pathname.includes('index.html')) {
+    initFlipCard();
+  } else if (window.location.pathname.includes('about.html')) {
+    initAboutPageAnimations();
+  } else if (window.location.pathname.includes('user-experience.html')) {
+    initUXPageAnimations();
+  } else if (window.location.pathname.includes('casestudy')) {
+    initCaseStudyAnimations();
+  } else if (window.location.pathname.includes('communication.html')) {
+    initCommunicationsAnimations();
+  } else if (window.location.pathname.includes('contact.html')) {
+    initContactPage();
+  }
+});
+
+// Privacy page specific functionality
+function initPrivacyPage() {
+  // Only run on privacy page
+  if (!window.location.pathname.includes('privacy.html')) return;
+
+  // Simple fade-in animation for privacy content
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Observe privacy sections
+  const privacySections = document.querySelectorAll('.privacy-section-item');
+  privacySections.forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(el);
+  });
+}
+
+// Update the DOMContentLoaded event listener
+document.addEventListener("DOMContentLoaded", () => {
+  loadComponent("header-placeholder", "header.html");
+  loadComponent("footer-placeholder", "footer.html");
+  loadComponent("accessibility-placeholder", "accessibility.html");
+  
+  // Initialize page-specific functionality
+  if (window.location.pathname.includes('home.html') || 
+      window.location.pathname === '/' || 
+      window.location.pathname.includes('index.html')) {
+    initFlipCard();
+  } else if (window.location.pathname.includes('about.html')) {
+    initAboutPageAnimations();
+  } else if (window.location.pathname.includes('user-experience.html')) {
+    initUXPageAnimations();
+  } else if (window.location.pathname.includes('casestudy')) {
+    initCaseStudyAnimations();
+  } else if (window.location.pathname.includes('communication.html')) {
+    initCommunicationsAnimations();
+  } else if (window.location.pathname.includes('contact.html')) {
+    initContactPage();
+  } else if (window.location.pathname.includes('privacy.html')) {
+    initPrivacyPage();
+  }
+});
+
+// Imprint page specific functionality
+function initImprintPage() {
+  // Only run on imprint page
+  if (!window.location.pathname.includes('imprint.html')) return;
+
+  // Simple fade-in animation for imprint content
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Observe imprint sections
+  const imprintSections = document.querySelectorAll('.imprint-section-item');
+  imprintSections.forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(el);
+  });
+}
+
+// Update the DOMContentLoaded event listener
+document.addEventListener("DOMContentLoaded", () => {
+  loadComponent("header-placeholder", "header.html");
+  loadComponent("footer-placeholder", "footer.html");
+  loadComponent("accessibility-placeholder", "accessibility.html");
+  
+  // Initialize page-specific functionality
+  if (window.location.pathname.includes('home.html') || 
+      window.location.pathname === '/' || 
+      window.location.pathname.includes('index.html')) {
+    initFlipCard();
+  } else if (window.location.pathname.includes('about.html')) {
+    initAboutPageAnimations();
+  } else if (window.location.pathname.includes('user-experience.html')) {
+    initUXPageAnimations();
+  } else if (window.location.pathname.includes('casestudy')) {
+    initCaseStudyAnimations();
+  } else if (window.location.pathname.includes('communication.html')) {
+    initCommunicationsAnimations();
+  } else if (window.location.pathname.includes('contact.html')) {
+    initContactPage();
+  } else if (window.location.pathname.includes('privacy.html')) {
+    initPrivacyPage();
+  } else if (window.location.pathname.includes('imprint.html')) {
+    initImprintPage();
+  }
+});
