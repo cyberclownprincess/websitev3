@@ -662,7 +662,7 @@ footer {
 
 .principles-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr); 
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -756,6 +756,12 @@ footer {
 /* ==========================
    RESPONSIVE DESIGN - ABOUT PAGE
 ========================== */
+@media (max-width: 1024px) {
+  .principles-grid {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+}
+
 @media (max-width: 768px) {
   .about-title {
     font-size: 2.5rem;
@@ -766,7 +772,7 @@ footer {
   }
   
   .principles-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; 
     gap: 1.5rem;
   }
   
@@ -1471,5 +1477,1177 @@ footer {
 }
 
 .feature-item {
-  padding: 0.5rem
+  padding: 0.5rem 0;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.feature-item::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* Outcomes Section */
+.outcomes-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.outcomes-intro {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 4rem;
+  line-height: 1.6;
+}
+
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto 4rem;
+}
+
+.outcome-item {
+  text-align: center;
+}
+
+.outcome-metric {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.outcome-label {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+}
+
+.testimonial {
+  background: var(--color-bg);
+  padding: 3rem;
+  border-radius: 1rem;
+  border: 1px solid #E2E8F0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.testimonial-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-quote {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.testimonial-quote::before {
+  content: '"';
+  font-size: 4rem;
+  color: var(--color-accent);
+  position: absolute;
+  left: -2rem;
+  top: -1rem;
+  opacity: 0.3;
+  line-height: 1;
+}
+
+.testimonial-author {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* Learnings Section */
+.learnings-section {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 6rem 1.5rem;
+}
+
+.learnings-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.learning-item {
+  margin-bottom: 3rem;
+}
+
+.learning-item:last-child {
+  margin-bottom: 0;
+}
+
+.learning-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-white);
+  margin-bottom: 1rem;
+}
+
+.learning-description {
+  font-size: 1.125rem;
+  color: #94A3B8;
+  line-height: 1.7;
+}
+
+/* Case Study CTA */
+.case-study-cta {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.case-study-cta .cta-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.case-study-cta .cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.case-study-cta .cta-description {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.case-study-cta .cta-button {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-white);
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.125rem;
+  transition: background-color 0.3s;
+}
+
+.case-study-cta .cta-button:hover {
+  background: #2563EB;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN FOR CASE STUDY
+========================== */
+@media (max-width: 768px) {
+  .case-study-title {
+    font-size: 2.5rem;
+  }
+  
+  .case-study-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .project-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .challenges-grid,
+  .solutions-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .process-step {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .process-step-number {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+  
+  .outcomes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .outcome-metric {
+    font-size: 2.5rem;
+  }
+  
+  .testimonial {
+    padding: 2rem;
+  }
+  
+  .case-study-cta .cta-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .case-study-hero {
+    padding: 3rem 1.5rem 4rem;
+  }
+  
+  .project-details-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .outcomes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .challenge-card,
+  .solution-card,
+  .feature-card {
+    padding: 2rem;
+  }
+  
+  .case-study-cta .cta-title {
+    font-size: 2rem;
+  }
+}
+
+/* ==========================
+   COMMUNICATIONS PAGE STYLES
+========================== */
+
+/* Communications Hero Section */
+.comms-hero {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+.comms-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.comms-hero-badge {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.comms-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--color-white);
+  margin-bottom: 2rem;
+}
+
+.comms-hero-subtitle {
+  font-size: 1.5rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Communications Expertise Section */
+.comms-expertise-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.comms-expertise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.comms-expertise-item {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.comms-expertise-icon {
+  width: 5rem;
+  height: 5rem;
+  background: var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.comms-expertise-icon svg {
+  color: var(--color-white);
+}
+
+.comms-expertise-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.comms-expertise-description {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Communications Examples Section */
+.comms-examples-section {
+  background: var(--color-bg);
+  padding: 6rem 1.5rem;
+}
+
+.comms-examples-header {
+  max-width: 800px;
+  margin-bottom: 4rem;
+}
+
+.comms-examples-description {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.comms-examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.comms-example-card {
+  background: var(--color-white);
+  padding: 2.5rem;
+  border-radius: 1rem;
+  border: 1px solid #E2E8F0;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.comms-example-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.comms-example-metric {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.comms-example-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.comms-example-description {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Communications Skills Section */
+.comms-skills-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.comms-skills-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.comms-skill-item {
+  margin-bottom: 3rem;
+}
+
+.comms-skill-item:last-child {
+  margin-bottom: 0;
+}
+
+.comms-skill-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.comms-skill-description {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN FOR COMMUNICATIONS PAGE
+========================== */
+@media (max-width: 768px) {
+  .comms-hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .comms-hero-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .comms-expertise-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .comms-examples-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .comms-example-card {
+    padding: 2rem;
+  }
+  
+  .comms-example-metric {
+    font-size: 2rem;
+  }
+  
+  .comms-skill-title {
+    font-size: 1.25rem;
+  }
+  
+  .comms-skill-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .comms-hero {
+    padding: 4rem 1.5rem;
+  }
+  
+  .comms-hero-title {
+    font-size: 2rem;
+  }
+  
+  .comms-expertise-section,
+  .comms-examples-section,
+  .comms-skills-section {
+    padding: 4rem 1.5rem;
+  }
+  
+  .comms-expertise-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .comms-expertise-item {
+    padding: 1.5rem 1rem;
+  }
+  
+  .comms-example-card {
+    padding: 1.5rem;
+  }
+  
+  .comms-example-metric {
+    font-size: 1.75rem;
+  }
+}
+
+/* ==========================
+   CONTACT PAGE STYLES
+========================== */
+
+/* Contact Hero Section */
+.contact-hero {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+.contact-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--color-white);
+  margin-bottom: 2rem;
+}
+
+.contact-hero-subtitle {
+  font-size: 1.5rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Contact Section */
+.contact-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+  }
+}
+
+/* Contact Form */
+.contact-form-container {
+  width: 100%;
+}
+
+.contact-form-card {
+  background: var(--color-white);
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.contact-form-header {
+  padding: 2.5rem 2.5rem 0;
+}
+
+.contact-form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.contact-form-description {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.contact-form-content {
+  padding: 2.5rem;
+}
+
+/* Form Success Message */
+.form-success-message {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.success-icon {
+  width: 5rem;
+  height: 5rem;
+  background: #DCFCE7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.success-icon svg {
+  color: #16A34A;
+}
+
+.success-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.success-description {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Form Elements */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s;
+  background: var(--color-white);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--color-accent);
+  color: var(--color-white);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1rem;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #2563EB;
+  transform: translateY(-1px);
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.button-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Contact Info */
+.contact-info {
+  width: 100%;
+}
+
+.contact-info-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-info-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.contact-info-description {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.contact-method {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contact-method-icon {
+  width: 3rem;
+  height: 3rem;
+  background: var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-method-icon svg {
+  color: var(--color-white);
+}
+
+.contact-method-details {
+  flex: 1;
+}
+
+.contact-method-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.contact-method-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contact-method-link:hover {
+  color: #2563EB;
+  text-decoration: underline;
+}
+
+/* Contact Expectations */
+.contact-expectations {
+  background: var(--color-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid #E2E8F0;
+  margin-top: auto;
+}
+
+.expectations-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.expectations-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.expectations-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  color: var(--color-text-muted);
+}
+
+.expectations-bullet {
+  color: var(--color-accent);
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN FOR CONTACT PAGE
+========================== */
+@media (max-width: 768px) {
+  .contact-hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .contact-hero-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .contact-section {
+    padding: 4rem 1.5rem;
+  }
+  
+  .contact-grid {
+    gap: 3rem;
+  }
+  
+  .contact-form-header,
+  .contact-form-content {
+    padding: 2rem;
+  }
+  
+  .contact-form-title,
+  .contact-info-title {
+    font-size: 1.75rem;
+  }
+  
+  .contact-info-description {
+    font-size: 1rem;
+  }
+  
+  .contact-expectations {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-hero {
+    padding: 4rem 1.5rem;
+  }
+  
+  .contact-hero-title {
+    font-size: 2rem;
+  }
+  
+  .contact-method {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .contact-method-icon {
+    align-self: center;
+  }
+}
+
+/* ==========================
+   PRIVACY POLICY PAGE STYLES
+========================== */
+
+/* Privacy Section */
+.privacy-section {
+  padding: 4rem 1.5rem 6rem;
+  background: var(--color-white);
+  min-height: calc(100vh - 200px);
+}
+
+.privacy-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.privacy-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.privacy-text {
+  margin-top: 3rem;
+}
+
+.privacy-section-item {
+  margin-bottom: 3rem;
+}
+
+.privacy-section-item:last-child {
+  margin-bottom: 0;
+}
+
+.privacy-section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.privacy-section-description {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.privacy-section-description:last-child {
+  margin-bottom: 0;
+}
+
+.privacy-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.privacy-list-item {
+  padding: 0.5rem 0;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.privacy-list-item::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.privacy-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.privacy-link:hover {
+  color: #2563EB;
+  text-decoration: underline;
+}
+
+.privacy-update-date {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #E2E8F0;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN FOR PRIVACY PAGE
+========================== */
+@media (max-width: 768px) {
+  .privacy-section {
+    padding: 3rem 1.5rem 4rem;
+  }
+  
+  .privacy-title {
+    font-size: 2.5rem;
+  }
+  
+  .privacy-section-title {
+    font-size: 1.25rem;
+  }
+  
+  .privacy-section-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .privacy-title {
+    font-size: 2rem;
+  }
+  
+  .privacy-section {
+    padding: 2rem 1rem 3rem;
+  }
+  
+  .privacy-list-item {
+    padding-left: 1.25rem;
+  }
+}
+
+/* ==========================
+   IMPRINT PAGE STYLES
+========================== */
+
+/* Imprint Section */
+.imprint-section {
+  padding: 4rem 1.5rem 6rem;
+  background: var(--color-white);
+  min-height: calc(100vh - 200px);
+}
+
+.imprint-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.imprint-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.imprint-text {
+  margin-top: 3rem;
+}
+
+.imprint-section-item {
+  margin-bottom: 3rem;
+}
+
+.imprint-section-item:last-child {
+  margin-bottom: 0;
+}
+
+.imprint-section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.imprint-section-description {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.imprint-section-description:last-child {
+  margin-bottom: 0;
+}
+
+/* Contact Information Grid */
+.contact-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.contact-info-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.contact-info-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: var(--color-primary);
+  min-width: 80px;
+}
+
+.contact-info-value {
+  color: var(--color-text-muted);
+  flex: 1;
+}
+
+.contact-info-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contact-info-link:hover {
+  color: #2563EB;
+  text-decoration: underline;
+}
+
+/* Disclaimer Sections */
+.disclaimer-section {
+  margin-bottom: 2rem;
+}
+
+.disclaimer-section:last-child {
+  margin-bottom: 0;
+}
+
+.disclaimer-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+
+.disclaimer-subtitle:first-child {
+  margin-top: 0;
+}
+
+.imprint-update-date {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #E2E8F0;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN FOR IMPRINT PAGE
+========================== */
+@media (max-width: 768px) {
+  .imprint-section {
+    padding: 3rem 1.5rem 4rem;
+  }
+  
+  .imprint-title {
+    font-size: 2.5rem;
+  }
+  
+  .imprint-section-title {
+    font-size: 1.25rem;
+  }
+  
+  .disclaimer-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .imprint-section-description {
+    font-size: 1rem;
+  }
+  
+  .contact-info-item {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .contact-info-label {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .imprint-title {
+    font-size: 2rem;
+  }
+  
+  .imprint-section {
+    padding: 2rem 1rem 3rem;
+  }
+  
+  .disclaimer-section {
+    margin-bottom: 1.5rem;
+  }
 }
