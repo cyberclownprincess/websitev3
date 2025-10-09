@@ -2,32 +2,63 @@
 async function loadComponent(id, file) {
   try {
     const response = await fetch(file);
-    if (!response.ok) throw new Error(`Could not load ${file}`);
+    if (!response.ok) throw new Error(`Could not load ${file}: ${response.status}`);
     const content = await response.text();
     document.getElementById(id).innerHTML = content;
 
     // Initialize features based on component
-    if (id === "accessibility-placeholder") {
-      initAccessibilityFeatures();
-    } else if (id === "header-placeholder") {
-      initNavigation();
-    } else if (id === "footer-placeholder") {
-      initFooter();
+    const initFunctions = {
+      'accessibility-placeholder': initAccessibilityFeatures,
+      'header-placeholder': initNavigation,
+      'footer-placeholder': initFooter
+    };
+
+    if (initFunctions[id]) {
+      initFunctions[id]();
     }
   } catch (error) {
-    console.error(error);
+    console.error(`Error loading component ${id}:`, error);
   }
 }
 
-// Initialize when DOM is loaded
-document.addEventListener("DOMContentLoaded", () => {
-  loadComponent("header-placeholder", "header.html");
-  loadComponent("footer-placeholder", "footer.html");
-  loadComponent("accessibility-placeholder", "accessibility.html");
+// Initialize all components
+async function initializeComponents() {
+  try {
+    await Promise.all([
+      loadComponent("header-placeholder", "header.html"),
+      loadComponent("footer-placeholder", "footer.html"),
+      loadComponent("accessibility-placeholder", "accessibility.html")
+    ]);
+    
+    // Initialize page-specific functionality after components are loaded
+    initializePageSpecificFunctions();
+  } catch (error) {
+    console.error('Error initializing components:', error);
+  }
+}
+
+// Page-specific functionality mapper
+function initializePageSpecificFunctions() {
+  const pageHandlers = {
+    'home': initFlipCard,
+    'about': initAboutPageAnimations,
+    'user-experience': initUXPageAnimations,
+    'casestudy': initCaseStudyAnimations,
+    'communication': initCommunicationsAnimations,
+    'contact': initContactPage,
+    'privacy': initPrivacyPage,
+    'imprint': initImprintPage
+  };
+
+  const currentPath = window.location.pathname.toLowerCase();
   
-  // Initialize business card flip functionality
-  initFlipCard();
-});
+  for (const [page, handler] of Object.entries(pageHandlers)) {
+    if (currentPath.includes(page)) {
+      handler();
+      break; // Only run one handler per page
+    }
+  }
+}
 
 // Flip Card Functionality
 function initFlipCard() {
@@ -45,6 +76,9 @@ function initFlipCard() {
         this.classList.toggle('flipped');
       }
     });
+    
+    // Ensure focusable for keyboard navigation
+    flipCard.setAttribute('tabindex', '0');
   }
 }
 
@@ -55,18 +89,30 @@ function initNavigation() {
   
   if (mobileMenuButton && navMenu) {
     mobileMenuButton.addEventListener('click', function() {
-      navMenu.classList.toggle('show');
+      const isExpanded = navMenu.classList.toggle('show');
+      this.setAttribute('aria-expanded', isExpanded);
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileMenuButton.contains(e.target) && !navMenu.contains(e.target)) {
+        navMenu.classList.remove('show');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+      }
     });
   }
 
   // Set active navigation link based on current page
-  const currentPage = window.location.pathname.split('/').pop() || 'home.html';
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const navLinks = document.querySelectorAll('nav a');
   
   navLinks.forEach(link => {
     const linkHref = link.getAttribute('href');
-    if (linkHref === currentPage) {
+    if (linkHref === currentPage || 
+        (currentPage === '' && linkHref === 'index.html') ||
+        (currentPage.includes(linkHref.replace('.html', '')))) {
       link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
     }
   });
 }
@@ -74,9 +120,10 @@ function initNavigation() {
 // Footer functionality
 function initFooter() {
   // Footer-specific initializations can go here
+  console.log('Footer initialized');
 }
 
-// Accessibility-Funktionen
+// Accessibility functions
 function initAccessibilityFeatures() {
   const body = document.body;
   const contrastBtn = document.getElementById("toggle-contrast");
@@ -86,19 +133,36 @@ function initAccessibilityFeatures() {
 
   let fontSize = 100;
 
+  // Load saved preferences
+  const savedFontSize = localStorage.getItem('fontSize');
+  const highContrast = localStorage.getItem('highContrast') === 'true';
+  
+  if (savedFontSize) {
+    fontSize = parseInt(savedFontSize);
+    body.style.fontSize = fontSize + '%';
+  }
+  
+  if (highContrast) {
+    body.classList.add('high-contrast');
+    contrastBtn?.setAttribute('aria-pressed', 'true');
+  }
+
   contrastBtn?.addEventListener("click", () => {
     const isActive = body.classList.toggle("high-contrast");
     contrastBtn.setAttribute("aria-pressed", isActive);
+    localStorage.setItem('highContrast', isActive);
   });
 
   increaseFontBtn?.addEventListener("click", () => {
-    fontSize += 10;
+    fontSize = Math.min(150, fontSize + 10);
     body.style.fontSize = fontSize + "%";
+    localStorage.setItem('fontSize', fontSize);
   });
 
   decreaseFontBtn?.addEventListener("click", () => {
     fontSize = Math.max(70, fontSize - 10);
     body.style.fontSize = fontSize + "%";
+    localStorage.setItem('fontSize', fontSize);
   });
 
   resetBtn?.addEventListener("click", () => {
@@ -106,408 +170,84 @@ function initAccessibilityFeatures() {
     body.style.fontSize = "100%";
     body.classList.remove("high-contrast");
     contrastBtn?.setAttribute("aria-pressed", "false");
+    localStorage.removeItem('fontSize');
+    localStorage.removeItem('highContrast');
   });
 }
 
-// About page specific animations
+// Generic animation function
+function initScrollAnimations(selectors, options = {}) {
+  const {
+    threshold = 0.1,
+    rootMargin = '0px 0px -50px 0px',
+    translateX = 0,
+    translateY = 20
+  } = options;
+
+  const observerOptions = { threshold, rootMargin };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translate(0, 0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  const elements = document.querySelectorAll(selectors);
+  elements.forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = `translate(${translateX}px, ${translateY}px)`;
+    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(el);
+  });
+}
+
+// Page-specific animation functions
 function initAboutPageAnimations() {
-  // Only run on about page
-  if (!window.location.pathname.includes('about.html')) return;
-
-  // Simple fade-in animation for elements
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-
-  // Observe elements for animation
-  const animatedElements = document.querySelectorAll('.principle-card, .approach-step');
-  animatedElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-  });
+  initScrollAnimations('.principle-card, .approach-step');
 }
 
-// Update the DOMContentLoaded event listener
-document.addEventListener("DOMContentLoaded", () => {
-  loadComponent("header-placeholder", "header.html");
-  loadComponent("footer-placeholder", "footer.html");
-  loadComponent("accessibility-placeholder", "accessibility.html");
-  
-  // Initialize page-specific functionality
-  if (window.location.pathname.includes('home.html') || 
-      window.location.pathname === '/' || 
-      window.location.pathname.includes('index.html')) {
-    initFlipCard();
-  } else if (window.location.pathname.includes('about.html')) {
-    initAboutPageAnimations();
-  }
-});
-
-// UX page specific animations
 function initUXPageAnimations() {
-  // Only run on UX page
-  if (!window.location.pathname.includes('user-experience.html')) return;
-
-  // Intersection Observer for scroll animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-
-  // Observe expertise items
-  const expertiseItems = document.querySelectorAll('.expertise-item');
-  expertiseItems.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    observer.observe(el);
-  });
-
-  // Observe case study cards
-  const caseStudyCards = document.querySelectorAll('.case-study-card');
-  caseStudyCards.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    observer.observe(el);
-  });
-
-  // Observe process steps
-  const processSteps = document.querySelectorAll('.process-step');
-  processSteps.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateX(-20px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    observer.observe(el);
-  });
+  initScrollAnimations('.expertise-item, .case-study-card');
+  initScrollAnimations('.process-step', { translateX: -20, translateY: 0 });
 }
 
-// Update the DOMContentLoaded event listener
-document.addEventListener("DOMContentLoaded", () => {
-  loadComponent("header-placeholder", "header.html");
-  loadComponent("footer-placeholder", "footer.html");
-  loadComponent("accessibility-placeholder", "accessibility.html");
-  
-  // Initialize page-specific functionality
-  if (window.location.pathname.includes('home.html') || 
-      window.location.pathname === '/' || 
-      window.location.pathname.includes('index.html')) {
-    initFlipCard();
-  } else if (window.location.pathname.includes('about.html')) {
-    initAboutPageAnimations();
-  } else if (window.location.pathname.includes('user-experience.html')) {
-    initUXPageAnimations();
-  }
-});
-
-// Case Study page specific animations
 function initCaseStudyAnimations() {
-  // Only run on case study pages
-  if (!window.location.pathname.includes('casestudy')) return;
-
-  // Intersection Observer for scroll animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-
-  // Observe various elements for animation
-  const animatedElements = document.querySelectorAll(
-    '.challenge-card, .solution-card, .feature-card, .process-step, .outcome-item, .learning-item'
-  );
-  
-  animatedElements.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    observer.observe(el);
-  });
+  initScrollAnimations('.challenge-card, .solution-card, .feature-card, .process-step, .outcome-item, .learning-item');
 }
 
-// Update the DOMContentLoaded event listener
-document.addEventListener("DOMContentLoaded", () => {
-  loadComponent("header-placeholder", "header.html");
-  loadComponent("footer-placeholder", "footer.html");
-  loadComponent("accessibility-placeholder", "accessibility.html");
-  
-  // Initialize page-specific functionality
-  if (window.location.pathname.includes('home.html') || 
-      window.location.pathname === '/' || 
-      window.location.pathname.includes('index.html')) {
-    initFlipCard();
-  } else if (window.location.pathname.includes('about.html')) {
-    initAboutPageAnimations();
-  } else if (window.location.pathname.includes('user-experience.html')) {
-    initUXPageAnimations();
-  } else if (window.location.pathname.includes('casestudy')) {
-    initCaseStudyAnimations();
-  }
-});
-
-// Communications page specific animations
 function initCommunicationsAnimations() {
-  // Only run on communications page
-  if (!window.location.pathname.includes('communication.html')) return;
-
-  // Intersection Observer for scroll animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-
-  // Observe expertise items
-  const expertiseItems = document.querySelectorAll('.comms-expertise-item');
-  expertiseItems.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    observer.observe(el);
-  });
-
-  // Observe example cards
-  const exampleCards = document.querySelectorAll('.comms-example-card');
-  exampleCards.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    observer.observe(el);
-  });
-
-  // Observe skill items
-  const skillItems = document.querySelectorAll('.comms-skill-item');
-  skillItems.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateX(-20px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    observer.observe(el);
-  });
+  initScrollAnimations('.comms-expertise-item, .comms-example-card');
+  initScrollAnimations('.comms-skill-item', { translateX: -20, translateY: 0 });
 }
 
-// Update the DOMContentLoaded event listener
-document.addEventListener("DOMContentLoaded", () => {
-  loadComponent("header-placeholder", "header.html");
-  loadComponent("footer-placeholder", "footer.html");
-  loadComponent("accessibility-placeholder", "accessibility.html");
-  
-  // Initialize page-specific functionality
-  if (window.location.pathname.includes('home.html') || 
-      window.location.pathname === '/' || 
-      window.location.pathname.includes('index.html')) {
-    initFlipCard();
-  } else if (window.location.pathname.includes('about.html')) {
-    initAboutPageAnimations();
-  } else if (window.location.pathname.includes('user-experience.html')) {
-    initUXPageAnimations();
-  } else if (window.location.pathname.includes('casestudy')) {
-    initCaseStudyAnimations();
-  } else if (window.location.pathname.includes('communication.html')) {
-    initCommunicationsAnimations();
-  }
-});
-
-// Contact page specific functionality
 function initContactPage() {
-  // Only run on contact page
-  if (!window.location.pathname.includes('contact.html')) return;
-
-  // Simple animations for contact page
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-
-  // Observe form and info sections
-  const contactSections = document.querySelectorAll('.contact-form-container, .contact-info');
-  contactSections.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
-    observer.observe(el);
-  });
+  initScrollAnimations('.contact-form-container, .contact-info');
 }
 
-// Update the DOMContentLoaded event listener
-document.addEventListener("DOMContentLoaded", () => {
-  loadComponent("header-placeholder", "header.html");
-  loadComponent("footer-placeholder", "footer.html");
-  loadComponent("accessibility-placeholder", "accessibility.html");
-  
-  // Initialize page-specific functionality
-  if (window.location.pathname.includes('home.html') || 
-      window.location.pathname === '/' || 
-      window.location.pathname.includes('index.html')) {
-    initFlipCard();
-  } else if (window.location.pathname.includes('about.html')) {
-    initAboutPageAnimations();
-  } else if (window.location.pathname.includes('user-experience.html')) {
-    initUXPageAnimations();
-  } else if (window.location.pathname.includes('casestudy')) {
-    initCaseStudyAnimations();
-  } else if (window.location.pathname.includes('communication.html')) {
-    initCommunicationsAnimations();
-  } else if (window.location.pathname.includes('contact.html')) {
-    initContactPage();
-  }
-});
-
-// Privacy page specific functionality
 function initPrivacyPage() {
-  // Only run on privacy page
-  if (!window.location.pathname.includes('privacy.html')) return;
-
-  // Simple fade-in animation for privacy content
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-
-  // Observe privacy sections
-  const privacySections = document.querySelectorAll('.privacy-section-item');
-  privacySections.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    observer.observe(el);
-  });
+  initScrollAnimations('.privacy-section-item');
 }
 
-// Update the DOMContentLoaded event listener
-document.addEventListener("DOMContentLoaded", () => {
-  loadComponent("header-placeholder", "header.html");
-  loadComponent("footer-placeholder", "footer.html");
-  loadComponent("accessibility-placeholder", "accessibility.html");
-  
-  // Initialize page-specific functionality
-  if (window.location.pathname.includes('home.html') || 
-      window.location.pathname === '/' || 
-      window.location.pathname.includes('index.html')) {
-    initFlipCard();
-  } else if (window.location.pathname.includes('about.html')) {
-    initAboutPageAnimations();
-  } else if (window.location.pathname.includes('user-experience.html')) {
-    initUXPageAnimations();
-  } else if (window.location.pathname.includes('casestudy')) {
-    initCaseStudyAnimations();
-  } else if (window.location.pathname.includes('communication.html')) {
-    initCommunicationsAnimations();
-  } else if (window.location.pathname.includes('contact.html')) {
-    initContactPage();
-  } else if (window.location.pathname.includes('privacy.html')) {
-    initPrivacyPage();
-  }
-});
-
-// Imprint page specific functionality
 function initImprintPage() {
-  // Only run on imprint page
-  if (!window.location.pathname.includes('imprint.html')) return;
-
-  // Simple fade-in animation for imprint content
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-
-  // Observe imprint sections
-  const imprintSections = document.querySelectorAll('.imprint-section-item');
-  imprintSections.forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    observer.observe(el);
-  });
+  initScrollAnimations('.imprint-section-item');
 }
 
-// Update the DOMContentLoaded event listener
+// Single DOMContentLoaded event listener
 document.addEventListener("DOMContentLoaded", () => {
-  loadComponent("header-placeholder", "header.html");
-  loadComponent("footer-placeholder", "footer.html");
-  loadComponent("accessibility-placeholder", "accessibility.html");
-  
-  // Initialize page-specific functionality
-  if (window.location.pathname.includes('home.html') || 
-      window.location.pathname === '/' || 
-      window.location.pathname.includes('index.html')) {
-    initFlipCard();
-  } else if (window.location.pathname.includes('about.html')) {
-    initAboutPageAnimations();
-  } else if (window.location.pathname.includes('user-experience.html')) {
-    initUXPageAnimations();
-  } else if (window.location.pathname.includes('casestudy')) {
-    initCaseStudyAnimations();
-  } else if (window.location.pathname.includes('communication.html')) {
-    initCommunicationsAnimations();
-  } else if (window.location.pathname.includes('contact.html')) {
-    initContactPage();
-  } else if (window.location.pathname.includes('privacy.html')) {
-    initPrivacyPage();
-  } else if (window.location.pathname.includes('imprint.html')) {
-    initImprintPage();
-  }
+  initializeComponents();
 });
+
+// Export for potential module usage
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    loadComponent,
+    initializeComponents,
+    initFlipCard,
+    initNavigation,
+    initAccessibilityFeatures,
+    initScrollAnimations
+  };
+}
