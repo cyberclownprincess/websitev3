@@ -29,6 +29,8 @@ async function initializeComponents() {
       loadComponent("footer-placeholder", "footer.html"),
       loadComponent("accessibility-placeholder", "accessibility.html")
     ]);
+
+    initAccessibilityFeatures();
     
     // Initialize page-specific functionality after components are loaded
     initializePageSpecificFunctions();
@@ -101,7 +103,201 @@ function initNavigation() {
       }
     });
   }
+// Accessibility Toolbar Functionality
+function initAccessibilityFeatures() {
+    const toolbar = document.getElementById('accessibility-toolbar');
+    const toggleBtn = toolbar?.querySelector('.accessibility-toggle');
+    const panel = toolbar?.querySelector('.accessibility-panel');
+    const closeBtn = toolbar?.querySelector('.close-panel');
+    
+    // State
+    let fontSize = 100;
+    let contrastMode = 'normal';
+    let dyslexiaFont = false;
 
+    // Load saved preferences
+    function loadPreferences() {
+        const savedFontSize = localStorage.getItem('accessibilityFontSize');
+        const savedContrast = localStorage.getItem('accessibilityContrast');
+        const savedDyslexia = localStorage.getItem('accessibilityDyslexia');
+        
+        if (savedFontSize) {
+            fontSize = parseInt(savedFontSize);
+            updateFontSize();
+        }
+        
+        if (savedContrast) {
+            contrastMode = savedContrast;
+            updateContrastMode();
+        }
+        
+        if (savedDyslexia === 'true') {
+            dyslexiaFont = true;
+            updateDyslexiaFont();
+        }
+    }
+
+    // Toggle panel visibility
+    function togglePanel() {
+        const isExpanded = panel.classList.toggle('show');
+        toggleBtn.setAttribute('aria-expanded', isExpanded);
+        
+        if (isExpanded) {
+            // Close panel when clicking outside
+            document.addEventListener('click', handleClickOutside);
+        } else {
+            document.removeEventListener('click', handleClickOutside);
+        }
+    }
+
+    function handleClickOutside(event) {
+        if (!toolbar.contains(event.target)) {
+            panel.classList.remove('show');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            document.removeEventListener('click', handleClickOutside);
+        }
+    }
+
+    // Font size functionality
+    function increaseFontSize() {
+        if (fontSize < 150) {
+            fontSize += 10;
+            updateFontSize();
+        }
+    }
+
+    function decreaseFontSize() {
+        if (fontSize > 80) {
+            fontSize -= 10;
+            updateFontSize();
+        }
+    }
+
+    function updateFontSize() {
+        document.documentElement.style.fontSize = `${fontSize}%`;
+        const display = document.getElementById('current-font-size');
+        if (display) display.textContent = fontSize;
+        
+        // Update button states
+        const increaseBtn = toolbar.querySelector('.increase-font');
+        const decreaseBtn = toolbar.querySelector('.decrease-font');
+        
+        increaseBtn.disabled = fontSize >= 150;
+        decreaseBtn.disabled = fontSize <= 80;
+        
+        localStorage.setItem('accessibilityFontSize', fontSize);
+    }
+
+    // Contrast mode functionality
+    function setContrastMode(mode) {
+        contrastMode = mode;
+        updateContrastMode();
+    }
+
+    function updateContrastMode() {
+        // Remove all contrast classes
+        document.body.classList.remove('high-contrast', 'dark-mode');
+        
+        // Add current mode class
+        if (contrastMode === 'high') {
+            document.body.classList.add('high-contrast');
+        } else if (contrastMode === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        
+        // Update button states
+        const contrastBtns = toolbar.querySelectorAll('.contrast-btn');
+        contrastBtns.forEach(btn => {
+            const isActive = btn.getAttribute('data-mode') === contrastMode;
+            btn.setAttribute('aria-pressed', isActive);
+        });
+        
+        localStorage.setItem('accessibilityContrast', contrastMode);
+    }
+
+    // Dyslexia font functionality
+    function toggleDyslexiaFont() {
+        dyslexiaFont = !dyslexiaFont;
+        updateDyslexiaFont();
+    }
+
+    function updateDyslexiaFont() {
+        const toggle = document.getElementById('dyslexia-toggle');
+        if (toggle) toggle.checked = dyslexiaFont;
+        
+        if (dyslexiaFont) {
+            document.body.classList.add('dyslexia-font');
+        } else {
+            document.body.classList.remove('dyslexia-font');
+        }
+        
+        localStorage.setItem('accessibilityDyslexia', dyslexiaFont);
+    }
+
+    // Reset functionality
+    function resetSettings() {
+        fontSize = 100;
+        contrastMode = 'normal';
+        dyslexiaFont = false;
+        
+        updateFontSize();
+        updateContrastMode();
+        updateDyslexiaFont();
+        
+        // Clear localStorage
+        localStorage.removeItem('accessibilityFontSize');
+        localStorage.removeItem('accessibilityContrast');
+        localStorage.removeItem('accessibilityDyslexia');
+    }
+
+    // Event listeners
+    if (toggleBtn && panel) {
+        toggleBtn.addEventListener('click', togglePanel);
+        closeBtn.addEventListener('click', () => {
+            panel.classList.remove('show');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            document.removeEventListener('click', handleClickOutside);
+        });
+    }
+
+    // Font controls
+    const increaseFontBtn = toolbar?.querySelector('.increase-font');
+    const decreaseFontBtn = toolbar?.querySelector('.decrease-font');
+    
+    increaseFontBtn?.addEventListener('click', increaseFontSize);
+    decreaseFontBtn?.addEventListener('click', decreaseFontSize);
+
+    // Contrast controls
+    const contrastBtns = toolbar?.querySelectorAll('.contrast-btn');
+    contrastBtns?.forEach(btn => {
+        btn.addEventListener('click', () => {
+            setContrastMode(btn.getAttribute('data-mode'));
+        });
+    });
+
+    // Dyslexia toggle
+    const dyslexiaToggle = document.getElementById('dyslexia-toggle');
+    dyslexiaToggle?.addEventListener('change', toggleDyslexiaFont);
+
+    // Reset button
+    const resetBtn = document.getElementById('reset-accessibility');
+    resetBtn?.addEventListener('click', resetSettings);
+
+    // Keyboard navigation
+    toolbar?.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && panel.classList.contains('show')) {
+            panel.classList.remove('show');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            toggleBtn.focus();
+        }
+    });
+
+    // Initialize
+    loadPreferences();
+}
+
+// Make function globally available
+window.initAccessibilityFeatures = initAccessibilityFeatures;
   // Set active navigation link based on current page
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const navLinks = document.querySelectorAll('nav a');
@@ -116,6 +312,8 @@ function initNavigation() {
     }
   });
 }
+
+
 
 // CV Download functionality
 function initCVDownload() {
@@ -140,7 +338,7 @@ function initCVDownload() {
     });
 }
 
-// Footer functionality - UPDATED VERSION
+// Footer functionality 
 function initFooter() {
     initCVDownload();
     console.log('Footer with CV download initialized');
@@ -170,58 +368,6 @@ function initializePageSpecificFunctions() {
     
     // Initialize CV download on every page
     initCVDownload();
-}
-
-// Accessibility functions
-function initAccessibilityFeatures() {
-  const body = document.body;
-  const contrastBtn = document.getElementById("toggle-contrast");
-  const increaseFontBtn = document.getElementById("increase-font");
-  const decreaseFontBtn = document.getElementById("decrease-font");
-  const resetBtn = document.getElementById("reset-accessibility");
-
-  let fontSize = 100;
-
-  // Load saved preferences
-  const savedFontSize = localStorage.getItem('fontSize');
-  const highContrast = localStorage.getItem('highContrast') === 'true';
-  
-  if (savedFontSize) {
-    fontSize = parseInt(savedFontSize);
-    body.style.fontSize = fontSize + '%';
-  }
-  
-  if (highContrast) {
-    body.classList.add('high-contrast');
-    contrastBtn?.setAttribute('aria-pressed', 'true');
-  }
-
-  contrastBtn?.addEventListener("click", () => {
-    const isActive = body.classList.toggle("high-contrast");
-    contrastBtn.setAttribute("aria-pressed", isActive);
-    localStorage.setItem('highContrast', isActive);
-  });
-
-  increaseFontBtn?.addEventListener("click", () => {
-    fontSize = Math.min(150, fontSize + 10);
-    body.style.fontSize = fontSize + "%";
-    localStorage.setItem('fontSize', fontSize);
-  });
-
-  decreaseFontBtn?.addEventListener("click", () => {
-    fontSize = Math.max(70, fontSize - 10);
-    body.style.fontSize = fontSize + "%";
-    localStorage.setItem('fontSize', fontSize);
-  });
-
-  resetBtn?.addEventListener("click", () => {
-    fontSize = 100;
-    body.style.fontSize = "100%";
-    body.classList.remove("high-contrast");
-    contrastBtn?.setAttribute("aria-pressed", "false");
-    localStorage.removeItem('fontSize');
-    localStorage.removeItem('highContrast');
-  });
 }
 
 // Generic animation function
