@@ -29,8 +29,6 @@ async function initializeComponents() {
       loadComponent("footer-placeholder", "footer.html"),
       loadComponent("accessibility-placeholder", "accessibility.html")
     ]);
-
-    initAccessibilityFeatures();
     
     // Initialize page-specific functionality after components are loaded
     initializePageSpecificFunctions();
@@ -60,6 +58,9 @@ function initializePageSpecificFunctions() {
       break; // Only run one handler per page
     }
   }
+  
+  // Initialize CV download on every page
+  initCVDownload();
 }
 
 // Flip Card Functionality
@@ -103,12 +104,42 @@ function initNavigation() {
       }
     });
   }
-// Accessibility Toolbar Functionality
+
+  // Set active navigation link based on current page
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const navLinks = document.querySelectorAll('nav a');
+  
+  navLinks.forEach(link => {
+    const linkHref = link.getAttribute('href');
+    if (linkHref === currentPage || 
+        (currentPage === '' && linkHref === 'index.html') ||
+        (currentPage.includes(linkHref.replace('.html', '')))) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
+    }
+  });
+} // ← Das war das fehlende schließende Klammer für initNavigation!
+
+// Accessibility Toolbar Functionality - JETZT AUSSERHALB von initNavigation!
 function initAccessibilityFeatures() {
+    console.log('🔧 Initializing Accessibility Features...');
+    
     const toolbar = document.getElementById('accessibility-toolbar');
-    const toggleBtn = toolbar?.querySelector('.accessibility-toggle');
-    const panel = toolbar?.querySelector('.accessibility-panel');
-    const closeBtn = toolbar?.querySelector('.close-panel');
+    if (!toolbar) {
+        console.error('❌ Accessibility toolbar not found!');
+        return;
+    }
+    
+    const toggleBtn = toolbar.querySelector('.accessibility-toggle');
+    const panel = toolbar.querySelector('.accessibility-panel');
+    const closeBtn = toolbar.querySelector('.close-panel');
+    
+    if (!toggleBtn || !panel) {
+        console.error('❌ Accessibility toggle or panel not found!');
+        return;
+    }
+    
+    console.log('✅ Accessibility elements found');
     
     // State
     let fontSize = 100;
@@ -139,6 +170,7 @@ function initAccessibilityFeatures() {
 
     // Toggle panel visibility
     function togglePanel() {
+        console.log('🎯 Toggling panel...');
         const isExpanded = panel.classList.toggle('show');
         toggleBtn.setAttribute('aria-expanded', isExpanded);
         
@@ -182,10 +214,11 @@ function initAccessibilityFeatures() {
         const increaseBtn = toolbar.querySelector('.increase-font');
         const decreaseBtn = toolbar.querySelector('.decrease-font');
         
-        increaseBtn.disabled = fontSize >= 150;
-        decreaseBtn.disabled = fontSize <= 80;
+        if (increaseBtn) increaseBtn.disabled = fontSize >= 150;
+        if (decreaseBtn) decreaseBtn.disabled = fontSize <= 80;
         
         localStorage.setItem('accessibilityFontSize', fontSize);
+        console.log('📝 Font size updated to:', fontSize + '%');
     }
 
     // Contrast mode functionality
@@ -213,6 +246,7 @@ function initAccessibilityFeatures() {
         });
         
         localStorage.setItem('accessibilityContrast', contrastMode);
+        console.log('🎨 Contrast mode updated to:', contrastMode);
     }
 
     // Dyslexia font functionality
@@ -232,6 +266,7 @@ function initAccessibilityFeatures() {
         }
         
         localStorage.setItem('accessibilityDyslexia', dyslexiaFont);
+        console.log('🔤 Dyslexia font:', dyslexiaFont ? 'enabled' : 'disabled');
     }
 
     // Reset functionality
@@ -248,28 +283,28 @@ function initAccessibilityFeatures() {
         localStorage.removeItem('accessibilityFontSize');
         localStorage.removeItem('accessibilityContrast');
         localStorage.removeItem('accessibilityDyslexia');
+        
+        console.log('🔄 All settings reset');
     }
 
     // Event listeners
-    if (toggleBtn && panel) {
-        toggleBtn.addEventListener('click', togglePanel);
-        closeBtn.addEventListener('click', () => {
-            panel.classList.remove('show');
-            toggleBtn.setAttribute('aria-expanded', 'false');
-            document.removeEventListener('click', handleClickOutside);
-        });
-    }
+    toggleBtn.addEventListener('click', togglePanel);
+    closeBtn.addEventListener('click', () => {
+        panel.classList.remove('show');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        document.removeEventListener('click', handleClickOutside);
+    });
 
     // Font controls
-    const increaseFontBtn = toolbar?.querySelector('.increase-font');
-    const decreaseFontBtn = toolbar?.querySelector('.decrease-font');
+    const increaseFontBtn = toolbar.querySelector('.increase-font');
+    const decreaseFontBtn = toolbar.querySelector('.decrease-font');
     
-    increaseFontBtn?.addEventListener('click', increaseFontSize);
-    decreaseFontBtn?.addEventListener('click', decreaseFontSize);
+    if (increaseFontBtn) increaseFontBtn.addEventListener('click', increaseFontSize);
+    if (decreaseFontBtn) decreaseFontBtn.addEventListener('click', decreaseFontSize);
 
     // Contrast controls
-    const contrastBtns = toolbar?.querySelectorAll('.contrast-btn');
-    contrastBtns?.forEach(btn => {
+    const contrastBtns = toolbar.querySelectorAll('.contrast-btn');
+    contrastBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             setContrastMode(btn.getAttribute('data-mode'));
         });
@@ -277,14 +312,18 @@ function initAccessibilityFeatures() {
 
     // Dyslexia toggle
     const dyslexiaToggle = document.getElementById('dyslexia-toggle');
-    dyslexiaToggle?.addEventListener('change', toggleDyslexiaFont);
+    if (dyslexiaToggle) {
+        dyslexiaToggle.addEventListener('change', toggleDyslexiaFont);
+    }
 
     // Reset button
     const resetBtn = document.getElementById('reset-accessibility');
-    resetBtn?.addEventListener('click', resetSettings);
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetSettings);
+    }
 
     // Keyboard navigation
-    toolbar?.addEventListener('keydown', (e) => {
+    toolbar.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && panel.classList.contains('show')) {
             panel.classList.remove('show');
             toggleBtn.setAttribute('aria-expanded', 'false');
@@ -294,26 +333,8 @@ function initAccessibilityFeatures() {
 
     // Initialize
     loadPreferences();
+    console.log('✅ Accessibility Features initialized successfully');
 }
-
-// Make function globally available
-window.initAccessibilityFeatures = initAccessibilityFeatures;
-  // Set active navigation link based on current page
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  const navLinks = document.querySelectorAll('nav a');
-  
-  navLinks.forEach(link => {
-    const linkHref = link.getAttribute('href');
-    if (linkHref === currentPage || 
-        (currentPage === '' && linkHref === 'index.html') ||
-        (currentPage.includes(linkHref.replace('.html', '')))) {
-      link.classList.add('active');
-      link.setAttribute('aria-current', 'page');
-    }
-  });
-}
-
-
 
 // CV Download functionality
 function initCVDownload() {
@@ -332,8 +353,6 @@ function initCVDownload() {
         // Add tracking or analytics if needed
         link.addEventListener('click', function(e) {
             console.log('CV download initiated');
-            // You can add analytics tracking here
-            // Example: gtag('event', 'cv_download', { 'event_category': 'engagement' });
         });
     });
 }
@@ -342,32 +361,6 @@ function initCVDownload() {
 function initFooter() {
     initCVDownload();
     console.log('Footer with CV download initialized');
-}
-
-// Update the initializePageSpecificFunctions to include CV download on all pages
-function initializePageSpecificFunctions() {
-    const pageHandlers = {
-        'home': initFlipCard,
-        'about': initAboutPageAnimations,
-        'user-experience': initUXPageAnimations,
-        'casestudy': initCaseStudyAnimations,
-        'communication': initCommunicationsAnimations,
-        'contact': initContactPage,
-        'privacy': initPrivacyPage,
-        'imprint': initImprintPage
-    };
-
-    const currentPath = window.location.pathname.toLowerCase();
-    
-    for (const [page, handler] of Object.entries(pageHandlers)) {
-        if (currentPath.includes(page)) {
-            handler();
-            break; // Only run one handler per page
-        }
-    }
-    
-    // Initialize CV download on every page
-    initCVDownload();
 }
 
 // Generic animation function
@@ -432,17 +425,6 @@ function initImprintPage() {
 
 // Single DOMContentLoaded event listener
 document.addEventListener("DOMContentLoaded", () => {
+  console.log('🚀 DOM loaded, initializing components...');
   initializeComponents();
 });
-
-// Export for potential module usage
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    loadComponent,
-    initializeComponents,
-    initFlipCard,
-    initNavigation,
-    initAccessibilityFeatures,
-    initScrollAnimations
-  };
-}
