@@ -117,10 +117,59 @@ function initNavigation() {
   });
 }
 
-// Footer functionality
+// CV Download functionality
+function initCVDownload() {
+    const cvDownloadLinks = document.querySelectorAll('.cv-download-link');
+    const cvDownloadUrl = "https://example.com/rika-federov-cv.pdf"; // Replace with your actual CV URL
+    
+    cvDownloadLinks.forEach(link => {
+        // Set the href attribute if not already set
+        if (!link.getAttribute('href')) {
+            link.setAttribute('href', cvDownloadUrl);
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+            link.setAttribute('download', 'Rika-Federov-CV.pdf');
+        }
+        
+        // Add tracking or analytics if needed
+        link.addEventListener('click', function(e) {
+            console.log('CV download initiated');
+            // You can add analytics tracking here
+            // Example: gtag('event', 'cv_download', { 'event_category': 'engagement' });
+        });
+    });
+}
+
+// Footer functionality - UPDATED VERSION
 function initFooter() {
-  // Footer-specific initializations can go here
-  console.log('Footer initialized');
+    initCVDownload();
+    console.log('Footer with CV download initialized');
+}
+
+// Update the initializePageSpecificFunctions to include CV download on all pages
+function initializePageSpecificFunctions() {
+    const pageHandlers = {
+        'home': initFlipCard,
+        'about': initAboutPageAnimations,
+        'user-experience': initUXPageAnimations,
+        'casestudy': initCaseStudyAnimations,
+        'communication': initCommunicationsAnimations,
+        'contact': initContactPage,
+        'privacy': initPrivacyPage,
+        'imprint': initImprintPage
+    };
+
+    const currentPath = window.location.pathname.toLowerCase();
+    
+    for (const [page, handler] of Object.entries(pageHandlers)) {
+        if (currentPath.includes(page)) {
+            handler();
+            break; // Only run one handler per page
+        }
+    }
+    
+    // Initialize CV download on every page
+    initCVDownload();
 }
 
 // Accessibility functions
