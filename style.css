@@ -2103,6 +2103,301 @@ footer {
 }
 
 /* ==========================
+   PROJECT VISUALS SECTION
+========================== */
+.project-visuals-section {
+  background: linear-gradient(to bottom, var(--color-bg), var(--color-white));
+  padding: 6rem 1.5rem;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  max-width: 600px;
+  margin: 1rem auto 0;
+  line-height: 1.6;
+}
+
+.project-gallery {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.gallery-container {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding: 1rem 0.5rem;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.gallery-container::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-item {
+  flex: 0 0 auto;
+  width: 350px;
+  background: var(--color-white);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-image {
+  width: 100%;
+  height: 250px;
+  background: var(--color-bg);
+  overflow: hidden;
+}
+
+.gallery-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-image img {
+  transform: scale(1.05);
+}
+
+.gallery-caption {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.gallery-caption p {
+  font-weight: 500;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.gallery-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  pointer-events: none;
+}
+
+.gallery-nav {
+  pointer-events: all;
+  width: 3rem;
+  height: 3rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-nav:hover {
+  background: var(--color-accent);
+  color: var(--color-white);
+  border-color: var(--color-accent);
+  transform: scale(1.1);
+}
+
+.gallery-indicator {
+  text-align: center;
+  margin-top: 1rem;
+  display: none;
+}
+
+.swipe-hint {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* ==========================
+   VIDEO DEMO SECTION
+========================== */
+.video-demo-section {
+  padding: 6rem 1.5rem;
+  background: var(--color-white);
+}
+
+.video-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  background: var(--color-dark);
+}
+
+.video-placeholder {
+  position: relative;
+  cursor: pointer;
+}
+
+.video-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  background: var(--color-dark);
+  overflow: hidden;
+}
+
+.video-thumbnail img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.video-placeholder:hover .play-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.play-button {
+  width: 80px;
+  height: 80px;
+  background: var(--color-accent);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.video-placeholder:hover .play-button {
+  transform: scale(1.1);
+  background: #2563EB;
+}
+
+.play-icon {
+  color: var(--color-white);
+  font-size: 2rem;
+  margin-left: 4px;
+}
+
+.video-info {
+  padding: 1.5rem 2rem;
+  background: var(--color-dark);
+}
+
+.video-title {
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin: 0;
+  text-align: center;
+}
+
+.video-embed {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  position: relative;
+}
+
+.video-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-note {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.note-text {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN
+========================== */
+@media (max-width: 768px) {
+  .gallery-item {
+    width: 300px;
+  }
+  
+  .gallery-controls {
+    display: none;
+  }
+  
+  .gallery-indicator {
+    display: block;
+  }
+  
+  .gallery-container {
+    padding: 1rem 0.25rem;
+    gap: 1rem;
+  }
+  
+  .video-info {
+    padding: 1rem 1.5rem;
+  }
+  
+  .play-button {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .play-icon {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-item {
+    width: 280px;
+  }
+  
+  .project-visuals-section,
+  .video-demo-section {
+    padding: 4rem 1rem;
+  }
+}
+
+/* ==========================
    COMMUNICATIONS PAGE STYLES
 ========================== */
 

@@ -61,6 +61,11 @@ function initializePageSpecificFunctions() {
   
   // Initialize CV download on every page
   initCVDownload();
+
+  if (currentPath.includes('casestudy')) {
+        initProjectGallery();
+        initVideoContainer();
+  }
 }
 
 // Flip Card Functionality
@@ -118,9 +123,9 @@ function initNavigation() {
       link.setAttribute('aria-current', 'page');
     }
   });
-} // ← Das war das fehlende schließende Klammer für initNavigation!
+} 
 
-// Accessibility Toolbar Functionality - JETZT AUSSERHALB von initNavigation!
+// Accessibility Toolbar Functionality 
 function initAccessibilityFeatures() {
     console.log('🔧 Initializing Accessibility Features...');
     
@@ -334,6 +339,72 @@ function initAccessibilityFeatures() {
     // Initialize
     loadPreferences();
     console.log('✅ Accessibility Features initialized successfully');
+}
+
+
+// Project Gallery functionality
+function initProjectGallery() {
+    const galleryContainer = document.getElementById('gallery-container');
+    const prevButton = document.getElementById('gallery-prev');
+    const nextButton = document.getElementById('gallery-next');
+    
+    if (!galleryContainer || !prevButton || !nextButton) return;
+    
+    const scrollAmount = 400;
+    
+    prevButton.addEventListener('click', () => {
+        galleryContainer.scrollBy({
+            left: -scrollAmount,
+            behavior: 'smooth'
+        });
+    });
+    
+    nextButton.addEventListener('click', () => {
+        galleryContainer.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Keyboard navigation
+    galleryContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            galleryContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            galleryContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    });
+}
+
+// Video Container functionality
+function initVideoContainer() {
+    const videoPlaceholder = document.getElementById('video-placeholder');
+    const videoEmbed = document.getElementById('video-embed');
+    const playButton = document.getElementById('play-button');
+    
+    if (!videoPlaceholder || !videoEmbed || !playButton) return;
+    
+    playButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        videoPlaceholder.style.display = 'none';
+        videoEmbed.style.display = 'block';
+    });
+    
+    videoPlaceholder.addEventListener('click', function() {
+        videoPlaceholder.style.display = 'none';
+        videoEmbed.style.display = 'block';
+    });
+    
+    // Keyboard support
+    videoPlaceholder.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            videoPlaceholder.style.display = 'none';
+            videoEmbed.style.display = 'block';
+        }
+    });
 }
 
 // CV Download functionality
