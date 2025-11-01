@@ -65,6 +65,7 @@ function initializePageSpecificFunctions() {
   if (currentPath.includes('casestudy')) {
         initProjectGallery();
         initVideoContainer();
+        initLightbox();
   }
 }
 
@@ -376,6 +377,105 @@ function initProjectGallery() {
             galleryContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
     });
+}
+
+// Lightbox functionality
+function initLightbox() {
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const lightboxOverlay = document.getElementById('lightbox-overlay');
+  const lightboxImage = document.getElementById('lightbox-image');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+
+  if (!galleryItems.length || !lightboxOverlay) return;
+
+  let currentIndex = 0;
+  const images = Array.from(galleryItems).map(item => {
+    const img = item.querySelector('img');
+    const caption = item.querySelector('.gallery-caption p');
+    return {
+      src: img.src,
+      alt: img.alt,
+      caption: caption ? caption.textContent : ''
+    };
+  });
+
+  // Open lightbox
+  function openLightbox(index) {
+    currentIndex = index;
+    updateLightbox();
+    lightboxOverlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+  }
+
+  // Close lightbox
+  function closeLightbox() {
+    lightboxOverlay.style.display = 'none';
+    document.body.style.overflow = ''; // Re-enable scrolling
+  }
+
+  // Navigate to next image
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateLightbox();
+  }
+
+  // Navigate to previous image
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateLightbox();
+  }
+
+  // Update lightbox content
+  function updateLightbox() {
+    const currentImage = images[currentIndex];
+    lightboxImage.src = currentImage.src;
+    lightboxImage.alt = currentImage.alt;
+    lightboxCaption.textContent = currentImage.caption;
+    lightboxCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+  }
+
+  // Event listeners for gallery items
+  galleryItems.forEach((item, index) => {
+    item.addEventListener('click', () => openLightbox(index));
+    
+    // Keyboard support for gallery items
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(index);
+      }
+    });
+  });
+
+  // Lightbox event listeners
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', prevImage);
+  lightboxNext.addEventListener('click', nextImage);
+
+  // Keyboard navigation in lightbox
+  lightboxOverlay.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') prevImage();
+    if (e.key === 'ArrowRight') nextImage();
+  });
+
+  // Close lightbox when clicking on overlay (but not on image)
+  lightboxOverlay.addEventListener('click', (e) => {
+    if (e.target === lightboxOverlay) {
+      closeLightbox();
+    }
+  });
+
+  // Make gallery items focusable
+  galleryItems.forEach(item => {
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('role', 'button');
+    item.setAttribute('aria-label', `View image: ${item.querySelector('.gallery-caption p').textContent}`);
+  });
 }
 
 // Video Container functionality
