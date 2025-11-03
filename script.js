@@ -67,6 +67,10 @@ function initializePageSpecificFunctions() {
         initVideoContainer();
         initLightbox();
   }
+
+  if (currentPath.includes('404')) {
+    init404Page();
+  }
 }
 
 // Flip Card Functionality
@@ -342,6 +346,41 @@ function initAccessibilityFeatures() {
     console.log('✅ Accessibility Features initialized successfully');
 }
 
+// 404 Page Animations
+function init404Page() {
+  // Add click animation to buttons
+  const buttons = document.querySelectorAll('.cta-button');
+  buttons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      // Add ripple effect
+      const ripple = document.createElement('span');
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+      
+      ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        width: ${size}px;
+        height: ${size}px;
+        left: ${x}px;
+        top: ${y}px;
+      `;
+      
+      this.style.position = 'relative';
+      this.style.overflow = 'hidden';
+      this.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+  });
+}
 
 // Project Gallery functionality
 function initProjectGallery() {
