@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# node (falls du später node nutzt)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# build outputs
+/dist
+/build
+
+# environment secrets
+.env
+.env.local
+.env.*.local
+
+# logs
+logs/
+*.log
