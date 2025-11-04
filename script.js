@@ -602,6 +602,7 @@ function initScrollAnimations(selectors, options = {}) {
   });
 }
 
+
 // Page-specific animation functions
 function initAboutPageAnimations() {
   initScrollAnimations('.principle-card, .approach-step');

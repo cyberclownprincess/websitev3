@@ -3514,6 +3514,12 @@ footer {
   margin-bottom: 0.25rem;
 }
 
+.contact-method-info {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
 .contact-method-link {
   color: var(--color-accent);
   text-decoration: none;
