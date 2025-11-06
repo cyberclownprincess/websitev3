@@ -329,20 +329,45 @@ input:checked + .toggle-slider:before {
 
 /* Accessibility Mode Classes */
 .high-contrast {
-  filter: contrast(150%) !important;
-}
-
-.high-contrast * {
-  border-color: #000 !important;
+  --color-primary: #000000 !important;
+  --color-text: #000000 !important;
+  --color-text-muted: #333333 !important;
+  --color-bg: #FFFFFF !important;
+  --color-white: #FFFFFF !important;
+  --color-accent: #0000FF !important;
+  --color-dark: #000000 !important;
 }
 
 .dark-mode {
+  --color-primary: #FFFFFF !important;
+  --color-text: #E2E8F0 !important;
+  --color-text-muted: #94A3B8 !important;
+  --color-bg: #0F172A !important;
+  --color-white: #1E293B !important;
+  --color-accent: #60A5FA !important;
+  --color-dark: #FFFFFF !important;
+}
+
+.accessibility-toolbar {
+  position: fixed !important;
+  bottom: 2rem !important;
+  right: 2rem !important;
+  z-index: 10000 !important;
+  transform: none !important;
+}
+
+.dark-mode img:not(.accessibility-toggle svg *) {
   filter: invert(1) hue-rotate(180deg) !important;
 }
 
-.dark-mode img,
-.dark-mode video {
-  filter: invert(1) hue-rotate(180deg) !important;
+.dark-mode .accessibility-toolbar,
+.high-contrast .accessibility-toolbar {
+  filter: none !important;
+}
+
+.dark-mode .accessibility-toggle svg,
+.high-contrast .accessibility-toggle svg {
+  filter: none !important;
 }
 
 .dyslexia-font {
