@@ -2324,15 +2324,19 @@ footer {
 /* Learnings Section */
 .learnings-section {
   background: var(--color-dark);
-  color: var(--color-white);
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.learnings-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 6rem 1.5rem;
 }
-
-.learnings-content {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
 .learnings-section .section-title {
   text-align: center;
 }
