@@ -39,6 +39,9 @@ async function initializeComponents() {
 
 // Page-specific functionality mapper
 function initializePageSpecificFunctions() {
+  const currentPath = window.location.pathname.toLowerCase();
+  console.log('📍 Current path:', currentPath);
+  
   const pageHandlers = {
     'home': initFlipCard,
     'about': initAboutPageAnimations,
@@ -50,26 +53,34 @@ function initializePageSpecificFunctions() {
     'imprint': initImprintPage
   };
 
-  const currentPath = window.location.pathname.toLowerCase();
-  
+  // Run page-specific handler
   for (const [page, handler] of Object.entries(pageHandlers)) {
-    if (currentPath.includes(page)) {
+    if (currentPath.includes(page) || 
+        (currentPath === '/' && page === 'home') ||
+        (currentPath.includes('index') && page === 'home')) {
+      console.log(`🎯 Running handler for: ${page}`);
       handler();
-      break; // Only run one handler per page
+      break;
     }
   }
   
   // Initialize CV download on every page
   initCVDownload();
 
+  // Case study specific functions
   if (currentPath.includes('casestudy')) {
-        initProjectGallery();
-        initVideoContainer();
-        initLightbox();
+    initProjectGallery();
+    initVideoContainer();
+    initLightbox();
   }
 
   if (currentPath.includes('404')) {
     init404Page();
+  }
+  
+  // Debug: Test flip card on home page
+  if (currentPath.includes('home') || currentPath === '/' || currentPath.includes('index')) {
+    setTimeout(debugFlipCard, 1000);
   }
 }
 
@@ -77,21 +88,40 @@ function initializePageSpecificFunctions() {
 function initFlipCard() {
   const flipCard = document.getElementById('flipCard');
   
+  console.log('🎯 Initializing Flip Card...', flipCard);
+  
   if (flipCard) {
-    flipCard.addEventListener('click', function() {
+    // Remove any existing event listeners
+    flipCard.replaceWith(flipCard.cloneNode(true));
+    const freshFlipCard = document.getElementById('flipCard');
+    
+    freshFlipCard.addEventListener('click', function() {
+      console.log('🃏 Flip Card clicked!');
       this.classList.toggle('flipped');
     });
 
     // Keyboard accessibility
-    flipCard.addEventListener('keydown', function(e) {
+    freshFlipCard.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
+        console.log('🃏 Flip Card keyboard activated!');
         this.classList.toggle('flipped');
       }
     });
     
     // Ensure focusable for keyboard navigation
-    flipCard.setAttribute('tabindex', '0');
+    freshFlipCard.setAttribute('tabindex', '0');
+    freshFlipCard.setAttribute('role', 'button');
+    
+    console.log('✅ Flip Card initialized successfully');
+  } else {
+    console.error('❌ Flip Card element not found!');
+    
+    // Fallback: Try again after a delay
+    setTimeout(() => {
+      console.log('🔄 Retrying Flip Card initialization...');
+      initFlipCard();
+    }, 500);
   }
 }
 
